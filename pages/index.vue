@@ -1,674 +1,918 @@
 <template>
   <div>
-<Proizvodim/>
-<!--<h1>«Стильный камень» - производитель изделий из камня и дерева</h1>-->
- <div class="col-xs-12">
-<h1>{{page_name}}</h1>
-<div class="slider-1" id="sliders-1" v-if="$store.state.ismobile == 'pc'">
-      <div>
-                        <div class="sliders"  v-bind:class="slides1[activeIndex].num">
-                            <div class="inner">
-                                <div class="title"> {{slides1[activeIndex].title}} </div>
-                                <div class="text"> {{slides1[activeIndex].text}} <br>из кварца и искусственного камня </div>
-                                <div class="arrows-holder">
-                                    <div class="arrow-left" @click="minus(activeIndex)"><span  ></span></div>
-                                    <div class="arrow-right"  @click="plus(activeIndex)"><span ></span></div>
-                                </div>
-                            </div>
-                        </div>
+    <section class="main-slider">
+      <div class="container">
+        <div class="gray-block">СТРОИМ и ремонтируем отличные ДОМА С 2005 ГОДА</div>
+        <h1>Строительные<br> и ремонтные работы<br> {{$store.state.inCity}}</h1>
+        <div class="items">
+          <div class="item" v-for="(item,index) in mainSlider" :key="index">
+            <img :src="item.icon" :alt="item.name">
+            <div class="item-text">
+              <title>{{item.name}}</title>
+              <p>{{item.desc}}</p>
+            </div>
+          </div>
+        </div>
       </div>
-</div>
-
-    <p>Оформление интерьера кухни, столовой, ванной, гостиной и других помещений в доме – важная задача, требующая профессионального подхода.
-        Компания «Стильный камень» специализируется на изготовлении качественных, долговечных изделий из натурального дерева и камня любой сложности.
-        В работе мы используем новейшие технологии обработки материалов, что позволяет придать готовой продукции привлекательный вид.
-        Производим установку на территории Московской, Рязанской и Владимирской областей.</p>
-<Pochemu/>
-<!--<h2>Мы изготавливаем</h2>
-<p>У нас вы можете заказать следующие виды изделий:</p>
-
-                    <div class="clearfix ossobennosti osobennosti-large izg-oss icons-row icons-row-slider">
-                        <div class="scrollmenu-productions">
-                          <div  class="production-link" v-for="(prod, idx) in sortProducts" :key="idx">
-                            <a :href="'https://стильный-камень.рф/'+prod.link" v-if="prod.link">
-                              <div class="item item-product">
-                                <div class="img-lg" :class="'img-lg-'+prod.index"></div>
-                                    <span>{{prod.title}}</span>
-                              </div>
-                            </a>
-                            <a href="" onclick="return false;" v-else>
-                              <div class="item item-product">
-                                <div class="img-lg" :class="'img-lg-'+prod.index"></div>
-                                    <span>{{prod.title}}</span>
-                              </div>
-                            </a>
-                          </div>
-                        </div>
-                    </div>
-                  -->
-<h2>Примеры расчета цены</h2>
-<Example />
-<h2>Материалы производства</h2>
-<p>Наше предприятие имеет широкие возможности по изготовлению столешниц из гранита, мрамора, натурального и акрилового камня, кварцевого агломерата и дерева.
-    Мы работаем напрямую с производителями данных материалов и используем в производстве исключительно сертифицированные компоненты, отвечающие всем требованиям
-     стандартов качества и безопасности.</p>
-<p>Дизайн, габариты, цвет, материал, текстура и прочие особенности изделий оговариваются и согласовываются индивидуально с заказчиком перед началом работ.</p>
-<h3>Преимущества изделий из камня</h3>
-<p>Столешницы, а также иные элементы мебели и изделия из камня имеют немало преимуществ. Среди наиболее значимых достоинств можно выделить:</p>
-<ul>
-    <li>Экологическая чистота и безопасность;</li>
-    <li>Гигиеничность;</li>
-    <li>Повышенная прочность;</li>
-    <li>Жаростойкость;</li>
-    <li>Широкая палитра;</li>
-    <li>Долговечность.</li>
-</ul>
-<div class="clearfix gal-5 icons-row" v-if="$store.state.ismobile == 'pc'">
-                        <div class="item item-row-free">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal5-01.webp" alt="Темная столешница в светлой кухне">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal5-01.jpg" alt="Темная столешница в светлой кухне">
-                            <img src="https://стильный-камень.рф/pictures/img/gal5-01.jpg" alt="Темная столешница в светлой кухне">
-                          </picture>
-                        </div>
-                        <div class="item item-row-free  item-row-free-2">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal5-02.webp" alt="Светлая столешница в светлой кухне">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal5-02.jpg" alt="Светлая столешница в светлой кухне">
-                            <img src="https://стильный-камень.рф/pictures/img/gal5-02.jpg" alt="Светлая столешница в светлой кухне">
-                          </picture>
-                        </div>
-                        <div class="item item-row-free  item-row-free-2">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal5-03.webp" alt="Раковина из камня">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal5-03.jpg" alt="Раковина из камня">
-                            <img src="https://стильный-камень.рф/pictures/img/gal5-03.jpg" alt="Раковина из камня">
-                          </picture>
-                        </div>
-                        <div class="item item-row-free item-row-free-2">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal5-04.webp" alt="Белая столешница из камня">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal5-04.jpg" alt="Белая столешница из камня">
-                            <img src="https://стильный-камень.рф/pictures/img/gal5-04.jpg" alt="Белая столешница из камня">
-                          </picture>
-                        </div>
-                        <div class="item item-row-free item-row-free-2">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal5-05.webp" alt="Барная стойка из камня">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal5-05.jpg" alt="Барная стойка из камня">
-                            <img src="https://стильный-камень.рф/pictures/img/gal5-05.jpg" alt="Барная стойка из камня">
-                          </picture>
-                        </div>
-                    </div>
-
-
-<div class="col-xs-12 col-sm-12 col-md-12">
-  <KamenKvartcz />
-</div>
-<h3>Преимущества изделия из дерева</h3>
-<p>Продукция из натурального дерева широко ценится во всем мире. Среди основных преимуществ деревянных изделий:</p>
-<ul>
-    <li>Демократичная цена;</li>
-    <li>Натуральность;</li>
-    <li>Экологическая чистота;</li>
-    <li>Безопасность;</li>
-    <li>Привлекательный внешний вид;</li>
-    <li>Возможность использования в интерьере в стиле Loft.</li>
-</ul>
-<h2>Что мы можем предложить</h2>
-<p>В нашей компании работают специалисты высокого уровня с богатым профессиональным опытом, что позволяет исключить любые ошибки в производстве и монтаже готовых изделий. Обращаясь к нам, вы можете рассчитывать на:</p>
-<ul>
-    <li>Выполнение работы «под ключ» (работаем от приема заявки до финальной установки);</li>
-    <li>Официальную 3-летнюю гарантию на произведенные изделия;</li>
-    <li>Широкий выбор типовых решений, что позволит сэкономить время и сделать правильный выбор;</li>
-    <li>Возможность заказа уникальных изделий любой формы и сложности.</li>
-</ul>
-<p>Все наши изделия изготавливаются из высококачественных сертифицированных материалов и служат достаточно долго.</p>
-<div class="row gallery-row icons-row">
-                        <div class="col-xs-6 col-md-3 item item-row-free">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal-05.webp" alt="Красивая квадратная столешница">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal-05.jpg" alt="Красивая квадратная столешница">
-                            <img src="https://стильный-камень.рф/pictures/img/gal-05.jpg" alt="Красивая квадратная столешница">
-                          </picture>
-                        </div>
-                        <div class="col-xs-6 col-md-3 item item-row-free">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal-06.webp" alt="Мойка в темной столешнице">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal-06.jpg" alt="Мойка в темной столешнице">
-                            <img src="https://стильный-камень.рф/pictures/img/gal-06.jpg" alt="Мойка в темной столешнице">
-                          </picture>
-                        </div>
-                        <div class="col-xs-6 col-md-3 item item-row-free">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal-07.webp" alt="Белая столешница на кухне">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal-07.jpg" alt="Белая столешница на кухне">
-                            <img src="https://стильный-камень.рф/pictures/img/gal-07.jpg" alt="Белая столешница на кухне">
-                          </picture>
-                        </div>
-                        <div class="col-xs-6 col-md-3 item item-row-free">
-                          <picture>
-                            <source type="image/webp" srcset="https://стильный-камень.рф/pictures/img/gal-08.webp" alt="Стильная светлая столешница из камня">
-                            <source type="image/jpg" srcset="https://стильный-камень.рф/pictures/img/gal-08.jpg" alt="Стильная светлая столешница из камня">
-                            <img src="https://стильный-камень.рф/pictures/img/gal-08.jpg" alt="Стильная светлая столешница из камня">
-                          </picture>
-                        </div>
-</div>
-<div id="animate2"></div>
-<h2 class="klient-title">Наши клиенты</h2>
-<div class="clearfix ossobennosti osobennosti-large icons-row klient-slider">
-                        <div class="scrollmenu-productions scrollmenu-production">
-                          <div>
-                            <nuxt-link to="" class="customer-link"  v-for="(client, idx) in clients" :key="idx">
-                              <div class="item item-product">
-                                <div class="carousel-img"  >
-                                  <picture>
-                                    <source type="image/webp" :srcset="client.img +'.webp'" class="img-responsive-prod" :alt="client.title">
-                                    <source type="image/jpg" :srcset="client.img +'.jpg'" class="img-responsive-prod" :alt="client.title">
-                                    <img :src="client.img+'.jpg'" class="img-responsive-prod" a:alt="client.title">
-                                  </picture>
-                                </div>
-                                </div>
-                            </nuxt-link>
-                          </div>
-                        </div>
-                    </div>
-<div class="zero-hidden-scroll"></div>
-
+      <div class="mouse">
+        <nuxt-link :to="{path: $store.state.sityFolder , hash: '#worksblock'}" v-if="$store.state.sityFolder">
+          <img src="/elements/main/mouse.svg" class="mouse-img" alt="icon">
+        </nuxt-link>
+        <nuxt-link :to="{path: '/' , hash: '#worksblock'}" v-else>
+          <img src="/elements/main/mouse.svg" class="mouse-img" alt="icon">
+        </nuxt-link>
+      </div>
+      <div class="right-btns">
+        <div class="item" v-for="(item,index) in rightBtn" :key="index" @click="modalStatus(index)">
+          <div class="item-img">
+            <img :src="item.icon" :alt="item.name">
+          </div>
+           <title>{{item.name}}</title>
+        </div>
+      </div>
+    </section>
+    <img src="/elements/main/bg-main-mobile2.jpg" class="mobile-back-slider" alt="mobile-back-slider">
+    <section class="main-works">
+      <a name="worksblock" id="worksblock"></a>
+      <div class="container" v-if="worksArr.length>0">
+        <h2>Оцените наши работы</h2>
+        <div class="work-row">
+          <Work v-for="(item,index) in worksArr" :key="index" :item="item" :page="'main'" v-show="index<6" />
+        </div>
+        <nuxt-link :to=" $store.state.sityFolder + '/works'" class="btn-standart btn-work" v-if="worksArr.length>6">
+            Показать больше работ
+        </nuxt-link>
+      </div>
+    </section>
+    <section class="main-services" v-if="servArr.length>0">
+      <div class="container">
+        <h2>Какие услуги мы оказываем</h2>
+        <Servises :servArr="servArr" :type="'couple'" />
+      </div>
+    </section>
+    <section class="main-reviews"  v-if="reviewsArr.length>0">
+      <div class="container container-reviews">
+        <div class="reviews-row">
+          <div class="reviews-title">
+            <h2>Посмотрите, что<br>говорят о нас<br>наши клиенты</h2>
+            <div class="yandex-widjet" v-show="false">
+              <div class="yandex-logo">
+                <img src="/elements/main/yandex.svg" alt="yandex">
+              </div>
+              <div class="yandex-main">
+                <div class="star-row">
+                  <img src="/elements/main/star.svg" alt="rate" v-for="(item,index) in 5" :key="index">
+                </div>
+                <div class="rate-count">
+                  <span class="rate">{{reviews.rate}}</span> <span class="count"> ({{reviews.count}})</span>
+                </div>
+              </div>
+            </div>
+            <nuxt-link :to="$store.state.sityFolder + '/otzivi'" class="btn-standart btn-reviews">
+              Смотреть все отзывы
+            </nuxt-link>
+          </div>
+          <div class="reviews-block">
+            <Revue v-for="(item,index) in reviewsArr" :key="index" :item="item" :pages="'main'"  :title="item.name" v-show="index>=minIndex&&index<=maxIndex"/>
+            <div class="btn-row">
+              <div class="prev-btn" v-if="minIndex>0" @click="minIndex = minIndex - 1; maxIndex = maxIndex - 1">
+                <svg class="icon icon-arrowLeft" viewBox="0 0 24 24" width="24px" height="24px"><title>Arrow Left</title><path d="M0 0h24v24H0z" fill="none"></path><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"></path></svg>
+              </div>
+              <div class="prev-btn unactive" v-else>
+                <svg class="icon icon-arrowLeft" viewBox="0 0 24 24" width="24px" height="24px"><title>Arrow Left</title><path d="M0 0h24v24H0z" fill="none"></path><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" fill='#d8d9d7'></path></svg>
+              </div>
+              <div class="next-btn" v-if="maxIndex<reviewsArr.length - 1" @click="minIndex = minIndex + 1; maxIndex = maxIndex + 1">
+                <svg class="icon icon-arrowRight" viewBox="0 0 24 24" width="24px" height="24px"><title>Arrow Right</title><path d="M0 0h24v24H0z" fill="none"></path><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"></path></svg>
+              </div>
+              <div class="next-btn unactive" v-else>
+                <svg class="icon icon-arrowRight" viewBox="0 0 24 24" width="24px" height="24px"><title>Arrow Right</title><path d="M0 0h24v24H0z" fill="none"></path><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill='#d8d9d7'></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="main-request">
+      <Request :named="requestName" />
+    </section>
+    <section class="main-article">
+      <div class="container">
+      <h2>Услуги строительных и ремонтных работ</h2>
+        <p>
+          Наши специалисты выполнят ремонт квартир любой сложности – косметический, капитальный, евроремонт, дизайнерский. Для нас не существует не решаемых задач.
+          С легкостью осуществим перепланировку, установим новые окна, сантехнику, электрику. Сделаем черновую и чистовую отделку. Осуществляем ремонт в новостройках,
+          хрущевках, одна - и двухкомнатных квартирах.</p>
+        <p>С каждым клиентом ведется индивидуальное сотрудничество:</p>
+        <ul style="margin-top: 10px;">
+          <li>подбираем и закупаем материалы;</li>
+          <li>разрабатываем дизайн;</li>
+          <li>консультируем;</li>
+          <li>согласовываем перечень работ.</li>
+        </ul>
+        <p>Стоимость ремонта зависит от многих факторов. Если хотите получить детальную информацию, вам нужно только позвонить. Мы с легкостью ответим на все вопросы
+          и выполним предварительные расчеты.</p>
+        <p>  Заказать ремонт можно у нас в любой момент. Сразу отправим к вам специалиста для осмотра квартиры и составления сметы. Мы все сделаем под ключ и в
+          строго оговоренные сроки. Вам останется только принять работу и произвести оплату. С нашей компанией вы гарантированно получаете уютное жилье с
+          качественным ремонтом.</p>
+        <p>При строительстве дома можно использовать ипотечные средства и материнский капитал.</p>
+        <p>Широкий спектр услуг – наше основное преимущество. Мы в силах предоставить клиенту как отдельные виды работ, так и полный их комплекс в рамках одного
+          или нескольких объектов.</p>
+        <p>В услуги строительно-монтажной компании Строительство-Восток входит:</p>
+        <div class="old-services-block" v-if="servArr.length>0">
+          <div class="old-services-item" v-for="(item, index) in servArr" :key="index">
+            <nuxt-link :to="$store.state.sityFolder + item.url" class="category-link">{{item.name}}</nuxt-link>
+            <ul>
+              <li v-for="(itm, idx) in item.childs" :key="idx">
+                <nuxt-link :to="$store.state.sityFolder + itm.url">- {{itm.name}}</nuxt-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p>Если для вашего участка необходима установка септика, то мы рекомендуем перейти на сайт Септик-Восток, где представлен каталог септиков Термит и
+          станций очистки Ergobox. В ассортименте от наших партнёров можно подобрать септик для любых индивидуальных нужд, а также заказать доставку и монтаж.</p>
+        <div class="content-img-row">
+          <img src="/elements/septic/logo1a.png" alt="Eurolos">
+          <img src="/elements/septic/logo2.png" alt="Топол эко">
+          <img src="/elements/septic/logo3a.png" alt="Garda">
+          <img src="/elements/septic/logo4.png" alt="Волгарь">
+          <img src="/elements/septic/logo5.png" alt="Юнилос">
+        </div>
+        <p>В услуги нашей ремонтно-строительной компании также входит сервисное обслуживание и поддержка помещений в рабочем состоянии и отделочные работы, такие
+          как монтаж потолочных конструкций, шпатлёвка стен, стяжка пола и многие другие. Говоря простым языком, ваша фирма получает специального сотрудника на
+          аутсорсе, следящим за состоянием электросетей, кондиционеров, мебели и других нюансов, которые могут нанести ущерб рабочему процессу и привести к
+          некоторым издержкам. И все эти строительные услуги в доступном ценовом диапозоне. Стоимость работ зависит от индивидуальных пожеланий заказчика, может
+          быть озвучена по телефону или при выезде на объект.</p>
+      </div>
+    </section>
+    <Modal
+      types="callback"
+      :showModal="showCallBack"
+      @closeModal="showCallBack = $event"
+    >
+      <template v-slot:header>
+        <span class="modal-title">Заказать обратный звонок</span>
+      </template>
+      <template v-slot:body>
+        <div class="modal-form">
+          <div class="form-block">
+            <div class="form">
+              <div class="form-wrap" :class="{ 'has-error': reqModalPhone }">
+                <input
+                  class="form-input form-control-has-validation"
+                  v-model="modalForm.phone"
+                  type="text"
+                  name="name"
+                  v-mask="'+7 (###) ###-##-##'"
+                  placeholder="+7 (123) 456-78-89"
+                /><span v-if="reqModalPhone" class="form-validation"
+                  >Укажите телефон корректно!</span
+                >
+                <img src="/elements/form/form-phone-active.svg" class="input-icon" alt="icon" v-if="modalForm.phone">
+                <img src="/elements/form/form-phone-unactive.svg" class="input-icon" alt="icon" v-else>
+              </div>
+              <div class="form-wrap" :class="{ 'has-error': reqModallName }">
+                <input
+                  class="form-input form-control-has-validation"
+                  v-model="modalForm.name"
+                  type="text"
+                  name="name"
+                  placeholder="Ваше имя:"
+                /><span v-if="reqModallName" class="form-validation"
+                  >Укажите имя!</span
+                >
+                <img src="/elements/form/form-user-active.svg" class="input-icon" alt="icon" v-if="modalForm.name">
+                <img src="/elements/form/form-user-unactive.svg" class="input-icon" alt="icon" v-else>
+              </div>
+              <div class="form-wrap">
+                <textarea
+                  class="form-input form-control-has-validation"
+                  v-model="modalForm.message"
+                  type="text"
+                  name="name"
+                  placeholder="Сообщение"
+                />
+              </div>
+              <div class="btn-standart btn-form" v-if="flag2">Отправляется</div>
+              <div class="btn-standart btn-form" @click="sendModalForm()" v-else>Заказать звонок</div>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-slot:footer> </template>
+    </Modal>
+    <Modal
+      types="calc"
+      :showModal="showCalc"
+      @closeModal="showCalc = $event"
+    >
+      <template v-slot:header>
+        <Calc :title="'Рассчитать стоимость'" :typeH="'h3'" />
+      </template>
+      <template v-slot:body>
+      </template>
+      <template v-slot:footer> </template>
+    </Modal>
+    <Modal
+      types="master"
+      :showModal="showMaster"
+      @closeModal="showMaster = $event"
+    >
+      <template v-slot:header>
+        <span class="modal-title">Вызвать мастера</span>
+      </template>
+      <template v-slot:body>
+        <div class="master-form">
+          <div class="form-block">
+            <div class="form">
+              <div class="form-wrap" :class="{ 'has-error': reqMasterPhone }">
+                <input
+                  class="form-input form-control-has-validation"
+                  v-model="masterForm.phone"
+                  type="text"
+                  name="name"
+                  v-mask="'+7 (###) ###-##-##'"
+                  placeholder="+7 (123) 456-78-89"
+                /><span v-if="reqMasterPhone" class="form-validation"
+                  >Укажите телефон корректно!</span
+                >
+                <img src="/elements/form/form-phone-active.svg" class="input-icon" alt="icon" v-if="masterForm.phone">
+                <img src="/elements/form/form-phone-unactive.svg" class="input-icon" alt="icon" v-else>
+              </div>
+              <div class="form-wrap" :class="{ 'has-error': reqMasterlName }">
+                <input
+                  class="form-input form-control-has-validation"
+                  v-model="masterForm.name"
+                  type="text"
+                  name="name"
+                  placeholder="Ваше имя:"
+                /><span v-if="reqMasterlName" class="form-validation"
+                  >Укажите имя!</span
+                >
+                <img src="/elements/form/form-user-active.svg" class="input-icon" alt="icon" v-if="masterForm.name">
+                <img src="/elements/form/form-user-unactive.svg" class="input-icon" alt="icon" v-else>
+              </div>
+              <div class="form-wrap">
+                <textarea
+                  class="form-input form-control-has-validation"
+                  v-model="masterForm.message"
+                  type="text"
+                  name="name"
+                  placeholder="Сообщение"
+                />
+              </div>
+              <div class="btn-standart btn-form" v-if="flag2">Отправляется</div>
+              <div class="btn-standart btn-form" @click="sendMasterForm()" v-else>Вызвать мастера</div>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-slot:footer> </template>
+    </Modal>
   </div>
-</div>
 </template>
 
 <script>
-import Proizvodim from "~/components/Proizvodim.vue";
-import KamenKvartcz from "~/components/KamenKvartcz.vue";
-import Example from "~/components/Example.vue";
-import Pochemu from "~/components/Pochemu.vue";
+import { VueMaskDirective } from "v-mask";
+import Modal from "~/components/modal.vue";
+import Work from "~/components/product.vue";
+import Revue from "~/components/revue.vue";
+import Calc from "~/components/calculator.vue";
+import Servises from "~/components/servises.vue";
+import Request from "~/components/request.vue";
 export default {
-    head() { return {
-      title:"Изделия из камня и дерева для Москвы, Рязани, Владимира",
+  directives: { mask: VueMaskDirective },
+  components: { Modal, Work, Revue, Calc, Servises, Request },
+  head() {
+    return {
+      title: "Заказать качественных строителей " + this.$store.state.inCity,
       meta: [
-        { name: 'description', hid: 'description', content: 'Заказать изделие из камня и массива. Замер и монтаж в любой точке Московской, Рязанской и Владимирской областях.'},
-        {name:'yandex-verification', content:'41e5914cc3ca6916'},
-        {name:"google-site-verification", content:"3svNW5hC-14ZVto-2C3hVBRielRor2w4JaN0MvEiKX0"},
+        {
+          hid: "description",
+          name: "description",
+          content: this.description
+            ? this.description
+            : "Строительство и ремонт объектов " + this.$store.state.inCity + '. Строго по смете, под ключ и в установленные сроки.',
+        },
       ],
-       link: [
-      { rel: 'canonical', href: 'https://стильный-камень.рф' },
-      ]
-    }},
-    components: {
-    Proizvodim,
-    KamenKvartcz,
-    Example,
-    Pochemu,
-    },
-    data() {
+    };
+  },
+  data() {
+    return {
+      pagetitle: "СТРОЙ ВОСТОК: строительные и ремонтные работы " + this.$store.state.inCity,
+      seoTitle: "",
+      description: "",
+      isNuxtReady: false,
+      showCalc: false,
+      showCallBack: false,
+      showMaster: false,
+      reqModalName: false,
+      reqModalPhone: false,
+      reqMasterlName: false,
+      reqMasterPhone: false,
+      requestName: 'Нужен ремонт<br>или строительство<br>дома?',
+      //reqModalMessage: false,
+      //reqFormPhone: false,
+      //reqFormName: false,
+      //reqFormMessage: false,
+      flag:true,
+      //flag2:false,
+      mainSlider: [
+        {
+          name: "Контроль качества",
+          desc: "Контролируем весь процесс строительства",
+          icon: "/elements/main/ico-main-slider-1.svg",
+        },
+        {
+          name: "Соблюдение сроков",
+          desc: "Выполняем все работы точно в срок по договору",
+          icon: "/elements/main/ico-main-slider-2.svg",
+        },
+        {
+          name: "Работа по договору",
+          desc: "Все нюансы строительства и сроки будут указаны в договоре",
+          icon: "/elements/main/ico-main-slider-3.svg",
+        },
+        {
+          name: "Консультирование",
+          desc: "Подскажем как сделать лучше с профессиональной точки зрения",
+          icon: "/elements/main/ico-main-slider-4.svg",
+        },
+        {
+          name: "Личный подход",
+          desc: "Подберем матеариалы исходя из Вашего бюджета",
+          icon: "/elements/main/ico-main-slider-5.svg",
+        },
+        {
+          name: "Гарантия качества",
+          desc: "Мы гарантируем качественное исполнение своих работ",
+          icon: "/elements/main/ico-main-slider-6.svg",
+        },
+      ],
+      rightBtn: [
+        {
+          name: "Рассчитать стоимость",
+          modal: "showCalc",
+          icon: "/elements/main/right-1.svg",
+        },
+        {
+          name: "Заказать звонок",
+          modal: "showCallBack",
+          icon: "/elements/main/right-2.svg",
+        },
+        {
+          name: "Вызвать мастера",
+          modal: "showMaster",
+          icon: "/elements/main/right-3.svg",
+        },
+      ],
+      minIndex:0,
+      maxIndex:1,
+     //form:{name:'',phone:'',message:''},
+      modalForm:{name:'',phone:'',message:''},
+      masterForm:{name:'',phone:'',message:''},
+      reviews:{rate:4.6, count:35},
+      /*worksArr:[],
+      servArr:[],
+      reviewsArr:[]*/
+    }
+  },
+  async mounted() {
+   //console.log(this.newArr)
+    /*this.worksArr = this.newArr.works
+    this.servArr = this.newArr.services.servArr
+    this.reviewsArr = this.newArr.reviews*/
+    this.isNuxtReady = true;
+    if (this.$store.state.ymInit == true) {
+      ym(90648260, "hit", this.$route.path);
+    }
+  },
+  async asyncData({ $axios, error, store }) {
+   // console.log(store.state.sityFolder)
+    return await $axios
+      .$get(
+        store.state.apiDomen +
+          `/api/main/main_page.php?city=` + store.state.sityFolder
+      )
+      .then((arr) => {
         return {
-          page_name:"«Стильный камень» - производитель изделий из камня",
-            slides1: [{num: "slide-01",title: "Столешницы из камня", text: "Собственное производство"},
-              {num: "slide-02",title: "Подоконники из камня", text: "Надежные подоконники"},
-              {num: "slide-03",title: "Столы из камня", text: "Красивые столы"},
-              {num: "slide-04",title: "Лестница из камня", text: "Практичные ступени"}],
-            sortProducts: [{index:"10",title:"Стол из дерева",link:""},
-              {index:"02",title:"Ступени из камня",link:"каталог/лестницы-и-ступени-из-камня/лестницы-и-ступени-из-кварцевого-агломерата.html"},
-              {index:"11",title:"Ступени из дерева",link:""},
-              {index:"03",title:"Пол из камня",link:"каталог/пол-из-камня.html"},
-              {index:"04",title:"Мойка из камня",link:"каталог/интегрированные-мойки.html"},
-              {index:"05",title:"Столешница из камня",link:"каталог/столешницы/столешницы-из-кварца.html"},
-              {index:"12",title:"Столешница из дерева",link:"каталог/столешницы/столешницы-из-массива-дерева.html"},
-              {index:"06",title:"Стеновая панель из камня",link:"каталог/стеновые-панели/стеновые-панели-из-кварца.html"},
-              {index:"13",title:"Стеновая панель из дерева",link:""},
-              {index:"07",title:"Барная стойка из камня",link:"каталог/барные-стойки/барные-стойки-из-кварца.html"},
-              {index:"14",title:"Барная стойка из дерева",link:""},
-              {index:"08",title:"Ресепшн из камня",link:"каталог/ресепшн/ресепшн-из-кварца.html"},
-              {index:"15",title:"Ресепшн из дерева",link:""},
-              {index:"09",title:"Подоконник из камня",link:"каталог/подоконники/подоконники-из-кварца.html"},
-              {index:"16",title:"Подоконник из дерева",link:""}],
-            clients:[{index:"1",title:"Танцевальная студия Танго",img:"https://стильный-камень.рф/pictures/img/carousel/1"},{index:"2",title:"Сеть ресторанов Маки Маки",img:"https://стильный-камень.рф/pictures/img/carousel/2"},
-              {index:"3",title:"Стоматологическое оборудование и материалы",img:"https://стильный-камень.рф/pictures/img/carousel/3"},{index:"4",title:"Протезно-ортопедическое предприятие",img:"https://стильный-камень.рф/pictures/img/carousel/4"},
-              {index:"5",title:"Производство строительно-отделочных материалов",img:"https://стильный-камень.рф/pictures/img/carousel/6"}
-            ],
-            prices:{first_price: "64 448",second_price: "95 600",third_price:"122 466",fourth_price: "44 950",fifth_price: "77 435",sixth_price: "102 412",},
-            osob:[{name:"Не оставляет пятен",img:"https://стильный-камень.рф/assets/img/osobennost-01.jpg)"},{name:"Простой уход",img:"https://стильный-камень.рф/assets/img/osobennost-02.jpg)"},
-                {name:"Износостойкость",img:"https://стильный-камень.рф/assets/img/osobennost-03.jpg)"},{name:"Высокая прочность",img:"https://стильный-камень.рф/assets/img/osobennost-04.jpg)"},
-                {name:"Жаростойкость",img:"https://стильный-камень.рф/assets/img/osobennost-05.jpg)"},{name:"Экологичность",img:"https://стильный-камень.рф/assets/img/osobennost-06.jpg)"},
-                {name:"Натуральность",img:"https://стильный-камень.рф/assets/img/osobennost-07.jpg)"}],
-            colors:[
-                {name:"Интересный зеленоватый оттенок столешницы из камня",link:"gal5-06"},
-                {name:"Голубоватые вкрапления в цвете столешницы",link:"gal5-07"},
-                {name:"Цвет натурального камня у столешницы",link:"gal5-08"},
-                {name:"Черно-белый цвет столешницы",link:"gal5-09"},
-                {name:"Дорогой цвет столешницы",link:"gal5-10"},
-                ],
-            slides: 4,
-            slide1Slider1:0,
-            slide2Slider1:1,
-            activeIndex:0,
-            selectActive1: true,
-            selectActive2: false,
-            selectActive3: false,
-            selectMaterial1: true,
-            selectMaterial2: false,
-            showDetailed1: false,
-            showDetailed2: false,
-            showDetailed3: false,
-            showButton: false,
-            currentShow: 0,
-            currentBoard: 0,
-            currentStone: 'Avant Quartz',
-            currentStoneId: 0,
-            stonesArr: [],
-            showModalStone: false,
-            openSuperModal:false,
+          newArr: arr,
+          servArr: arr.services.servArr,
+          reviewsArr: arr.reviews,
+          worksArr: arr.works,
+          cityN: arr.city
+          //worksArr: arr.mainPageArr.worksArr,
+          //servArr: arr.mainPageArr.servArr,
+         //reviewsArr: arr.mainPageArr.reviewsArr
         };
-    },
-    mounted(){
-        const scene = this.$scrollmagic.scene({
-            // ID of element where animation starts
-            triggerElement: '#animate2',
-            triggerHook: 0.7,
-            duration: 10
+      })
+      .catch((err) => {
+        error(err);
+      });
+  },
+  methods: {
+    async sendModalForm() {
+      if(this.modalForm.phone.length==18&&this.modalForm.name){
+        this.reqModalPhone = false;
+        this.reqModallName = false;
+        const mail = await this.$axios({
+        url: this.$store.state.apiDomen + '/api/main/mail.php',
+        method: 'POST',
+        data: {
+          name: this.modalForm.name,
+          phone: this.modalForm.phone,
+          message: this.modalForm.message,
+          //email: this.email,
+        }
         })
-            // Declaration of animation and attaching to element
-            .setTween('#animate2', {
-            css: {
-                color: 'red' // the tween durtion can be omitted and defaults to 1
-            }
-            })
+        .then((res) => {
+          if(res.code != 2) {
+          this.$toast.show('Ваше заявка отправлена. В скором времени с Вами свяжется наш менеджер.', {
+            position: "top-center",
+            duration: 5500,
+            });
+          }
+          else {
+              this.$toast.show('Заполните все поля.', {
+              position: "top-center",
+              duration: 3000,
+              theme: "bubble",
+              type: "error"
+            });
+          }
 
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        this.flag2 = true;
+        setTimeout(() => {
+          this.modalForm.name = '';
+          this.modalForm.phone = '';
+          this.modalForm.message = '';
+          this.flag2 = false;
+        }, 5000);
+      }
+      else{
+        if(this.modalForm.phone.length<18){
+          this.reqModalPhone = true;
+        }
+        else{
+          this.reqModalPhone = false;
+        }
+        if(!this.modalForm.name){
+          this.reqModallName = true;
+        }else{
+          this.reqModallName = false;
+        }
+      }
+    },
+    async sendMasterForm(){
+      //console.log(this.masterForm.phone.length);
+      if(this.masterForm.phone.length==18&&this.masterForm.name){
+        this.reqMasterPhone = false;
+        this.reqMasterlName = false;
+        const mail = await this.$axios({
+        url: this.$store.state.apiDomen + '/api/main/mail.php',
+        method: 'POST',
+        data: {
+          name: this.masterForm.name,
+          phone: this.masterForm.phone,
+          message: this.masterForm.message,
+          //email: this.email,
+        }
+        })
+        .then((res) => {
+          if(res.code != 2) {
+          this.$toast.show('Ваше заявка отправлена. В скором времени с Вами свяжется наш менеджер.', {
+            position: "top-center",
+            duration: 5500,
+            });
+          }
+          else {
+              this.$toast.show('Заполните все поля.', {
+              position: "top-center",
+              duration: 3000,
+              theme: "bubble",
+              type: "error"
+            });
+          }
 
-        // Add Scene to controller
-        this.$scrollmagic.addScene(scene)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+        this.flag2 = true;
+        setTimeout(() => {
+          this.masterForm.name = '';
+          this.masterForm.phone = '';
+          this.masterForm.message = '';
+          this.flag2 = false;
+        }, 5000);
+      }
+      else{
+        if(this.masterForm.phone.length<18){
+          this.reqMasterPhone = true;
+        }
+        else{
+          this.reqMasterPhone = false;
+        }
+        if(!this.masterForm.name){
+          this.reqMasterlName = true;
+        }else{
+          this.reqMasterlName = false;
+        }
+      }
     },
-    methods: {
-    minus(activeIndex) {
-      this.activeIndex = ((4 + activeIndex - 1) %4);
-    },
-    plus(activeIndex) {
-      this.activeIndex = ((activeIndex + 1) %4);
-    },
-    prevSlideSlider1() {
-          this.slide1Slider1 = ((this.slide1Slider1 + 4)%5);
-          this.slide2Slider1 = ((this.slide2Slider1 + 4)%5);
-        },
-    nextSlideSlider1() {
-          this.slide1Slider1 = ((this.slide1Slider1 + 1)%5);
-          this.slide2Slider1 = ((this.slide2Slider1 + 1)%5);
-        },
-    },
+    modalStatus(index) {
+      if (index == 0 ){
+        this.showCalc = !this.showCalc;
+      }else if (index == 1 ){
+        this.showCallBack = !this.showCallBack;
+      }else if (index == 2 ){
+        this.showMaster = !this.showMaster;
+      }
+    }
+  }
 }
 </script>
-
 <style scoped>
+h1{
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #271717;
+}
+h2{
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 50px;
+  text-transform: uppercase;
+  color: #271717;
+  text-align: center;
+}
 
-.slider-1 {
+.right-btns {
+  position: absolute;
+  top: 171px;
+  right: 0;
+}
+.right-btns .item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7px 5px;
+  gap: 5px;
+  width: 51px;
+  height: 53px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 2px 0px 0px 2px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+.right-btns .item-img{
+  width: 100%;
+  height: 30px;
+  display: flex;
+}
+.right-btns .item-img img{
+  margin: auto;
+}
+.right-btns .item title{
+  display:block;
+  font-size: 8px;
+  line-height: 8px;
+  text-align: center;
+  letter-spacing: 0.07em;
+  color: #271717;
+}
+.main-works h2{
+  margin-bottom: 60px;
+  margin-top: 60px;
+}
+.work-row{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.btn-work {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.main-services{
+  background: url(/elements/main/bg-3-test.png) round round;
+}
+.main-services h2{
+  margin: 120px 0 60px 0;
+}
+.reviews-row{
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(100% + 80px);
+  justify-content: space-between;
+}
+.reviews-title{
+  width: 422px;
+}
+.reviews-title h2{
+  text-align: left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.btn-reviews{
+  text-align: center;
+  width: 213px;
+  display: block;
+  color: #FF3F3F;
+  background: #fff;
+  margin-top: 90px;
+}
+.btn-reviews:hover{
+  background: #FF3F3F;
+  color: #fff;
+  opacity: 1;
+}
+.yandex-widjet{
+  padding: 30px 35px;
+  display: flex;
+  margin-bottom: 60px;
+}
+.yandex-main{
+  padding-left: 20px;
+}
+.yandex-main .star-row{
+  margin-bottom: 10px;
+}
+.yandex-main .star-row img{
+  margin-right: 8px;
+}
+.yandex-main span.count{
+  font-size: 18px;
+  line-height: 22px;
+  color: #C4C4C4;
+}
+.yandex-main span.rate{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #271717;
+}
+.reviews-block{
+  display: flex;
+  position: relative;
+  width: calc(100% - 482px);
+}
+.hooper-list{
+  display: flex;
+  width: 100%;
+}
+.hooper-list ul{
+  overflow: hidden;
+  transform: translate(0px, 0px);
+  width: 100%;
+  display: block;
+  height: 450px;
+}
+.hooper-list ul li{
+  width: 404px;
+  float: right;
+}
+.next-btn,
+.prev-btn {
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.next-btn.unactive,
+.prev-btn.unactive{
+  cursor: default;
+}
+.prev-btn{
+  position: absolute;
+  top: 120px;
+  left: -25px;
+}
+.next-btn{
+  position: absolute;
+  top: 120px;
+  right: -20px;
+}
+
+.main-request{
+  background: url(/elements/main/bg-5-test.png) round round;
+  padding: 60px 0;
+}
+.form-block span{
+  font-size: 16px;
+  line-height: 19px;
+  color: #271717;
+}
+.form-wrap{
+  position: relative;
+}
+.form-block input {
+  display: flex;
+  align-items: center;
+  padding: 20px 0px 20px 43px;
+  width: 100%;
+  max-width: 422px;
+  background: #FFFFFF;
+  border: 1px solid #DBDDDF;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  color: #271717;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.form-block textarea {
+  display: flex;
+  align-items: center;
+  padding: 20px 0px 20px 20px;
+  width: 100%;
+  max-width: 422px;
+  background: #FFFFFF;
+  border: 1px solid #DBDDDF;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 17px;
+  color: #271717;
+  margin-bottom: 10px;
+  height: 110px;
+  resize: none;
+  box-sizing: border-box;
+}
+.form-block input::placeholder,
+.form-block textarea::placeholder{
+  color: #B0B0B0;
+}
+.form-block .input-icon{
+  position: absolute;
+  top: 23px;
+  left: 20px;
+}
+.btn-form{
+  max-width: 422px;
+  box-sizing: border-box;
+  text-align: center;
+  display: block;
+}
+.form-validation{
+  color: #ff3f3f!important;
+  margin-bottom: 10px;
+  display: block;
+}
+.has-error input{
+  border: 1px solid #ff3f3f;
+}
+.mobile-back-slider{
+  display: none;
+}
+.main-article{
+  margin-bottom: 120px;
+}
+.main-article h2{
+  padding:0;
+}
+.old-services-block{
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+}
+.old-services-item{
+  padding: 10px 15px;
+  background: #e8e8e8;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  width: calc(33.3333% - 20px);
+  box-sizing: border-box;
+}
+.old-services-item .category-link{
+  font-weight: 600;
+  color: #333;
+}
+.old-services-item ul {
+  margin-top: 5px;
+}
+.old-services-item ul li{
+  margin-bottom: 5px;
+  display: block;
+}
+@media (max-width: 1450px) {
+  .reviews-row {
     width: 100%;
-    height: auto;
-    display:none;
+  }
 }
-.slider-1 .title {
-    text-transform: uppercase;
-    color: #c8601b;
-    font-weight: bold;
+@media (max-width: 1100px) {
+  .reviews-title{
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  .reviews-block {
+    width: 100%;
+  }
+  .reviews-row {
+    width: 100%;
+  }
+  .reviews-title h2 {
+    text-align: center;
+  }
+  .yandex-widjet {
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .btn-reviews {
+    width: 213px;
+    margin: 0 auto;
+  }
+  .old-services-item{
+    width: calc(50% - 15px);
+  }
+}
+@media (max-width: 600px) {
+
+  h1{
+    font-size: 26px;
+    line-height: 42px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+  }
+  .right-btns {
+    display: none;
+  }
+
+  .mobile-back-slider{
+    display: block;
+    width: 100%;
+  }
+  .main-works h2 {
+    margin: 60px 0 30px 0;
+    font-size: 22px;
+    line-height: 29px;
+  }
+  .work-row{
+    margin-bottom: 20px;
+  }
+  .btn-work {
+    font-size: 13px;
+    line-height: 16px;
+    padding: 20px 40px;
+  }
+  .main-services h2{
+    margin: 60px 0 30px 0;
+    font-size: 22px;
+    line-height: 29px;
+  }
+  .main-services{
+    background: #fff;
+  }
+  .reviews-title h2 {
+    font-size: 22px;
+    line-height: 29px;
+    text-align: center;
+  }
+  .reviews-block {
+    flex-wrap: wrap;
+  }
+  .prev-btn {
+    bottom: -15px;
+    top: unset;
+    left: calc(50% - 40px);
+  }
+  .next-btn {
+    bottom: -15px;
+    top: unset;
+    right: calc(50% - 40px);
+  }
+  .main-request {
+    padding: 30px 0;
+    background:none;
+  }
+  .form-block span {
     font-size: 14px;
-    margin-bottom: 10px;
-    border: none;
-}
-.slider-1 .text {
-    font-weight: bold;
-    height: 40px;
-    font-size:14px;
-    border: none;
-}
-.slider-1 .arrow-left {
-    height: 58px;
-    width: 75px;
-    background: #fe8200;
-    position: absolute;
-    right: -75px;
-    top: 0;
-    z-index: 2;
-    cursor: pointer;
-    border: none;
-}
-.slider-1 .arrow-right {
-    height: 58px;
-    width: 75px;
-    background: #9e3f00;
-    position: absolute;
-    right: -75px;
-    bottom: 0;
-    z-index: 2;
-    cursor: pointer;
-    border: none;
-}
-.slider-1 .arrow-left span {
+    line-height: 17px;
+    text-align: center;
     display: block;
-    width: 75px;
-    height: 58px;
-    background: url(../assets/img/arrow-left.png) no-repeat center center;
-}
-.slider-1 .arrow-right span {
-    display: block;
-    width: 75px;
-    height: 58px;
-    background: url(../assets/img/arrow-right.png) no-repeat center center;
-}
-.sliders {height: 400px;
-}
-.slider-1 .inner {
-    background: #f0f6f6;
-    padding: 20px 20px 20px 30px;
-    position: absolute;
-    top: 370px;
-    border-left: 5px solid #6d8585;
-    height: 120px;
-    width: 50%;
-}
-
-.slide-01 {
-    background: url(../assets/img/slider/slider_bg.jpg) no-repeat center center;
-    background-size: cover;
-}
-.slide-02 {
-    background: url(../assets/img/slider/podokonnik-iz-kamnya.jpg) no-repeat center center;
-    background-size: cover;
-}
-.slide-03 {
-    background: url(../assets/img/slider/stol-iz-kamnya.jpg) no-repeat center center;
-    background-size: cover;
-}
-.slide-04 {
-    background: url(../assets/img/slider/stupeni-iz-kamnya.jpg) no-repeat center center;
-    background-size: cover;
-}
-.animated {
-    transition: all 400ms;
-    position: absolute;
-    transform: translate(-50%, -50%);
   }
-
-  .slide-in {
-    opacity: 0;
-    transform: translate(-40%, -50%);
+  .form-block input {
+    max-width: 100%;
   }
-
-  .slide-in-active {
-    transition-delay: 150ms;
+  .form-block textarea {
+    max-width: 100%;
   }
-
-  .slide-out {
-    opacity: 1;
+  .btn-form {
+    max-width: 100%;
   }
-
-  .slide-out-active {
-    opacity: 0;
-    transform: translate(-60%, -50%);
+  .main-article{
+    margin-bottom: 60px;
   }
-
-/*.img-lg-01 {
-    background: url(../assets/img/large-os-01.jpg) no-repeat bottom center;
-}*/
-.img-lg-02 {
-    background: url(../assets/img/large-os-02.jpg) no-repeat bottom center;
-}
-.img-lg-03 {
-    background: url(../assets/img/large-os-03.jpg) no-repeat bottom center;
-}
-.img-lg-04 {
-    background: url(../assets/img/large-os-04.jpg) no-repeat bottom center;
-}
-.img-lg-05 {
-    background: url(../assets/img/large-os-05.jpg) no-repeat bottom center;
-}
-.img-lg-06 {
-    background: url(../assets/img/large-os-06.jpg) no-repeat bottom center;
-}
-.img-lg-07 {
-    background: url(../assets/img/large-os-07.jpg) no-repeat bottom center;
-}
-.img-lg-08 {
-    background: url(../assets/img/large-os-08.jpg) no-repeat bottom center;
-}
-.img-lg-09 {
-    background: url(../assets/img/large-os-09.jpg) no-repeat bottom center;
-}
-.img-lg-10 {
-    background: url(../assets/img/large-os-10.jpg) no-repeat bottom center;
-}
-.img-lg-11 {
-    background: url(../assets/img/large-os-11.jpg) no-repeat bottom center;
-}
-.img-lg-12 {
-    background: url(../assets/img/large-os-12.jpg) no-repeat bottom center;
-}
-.img-lg-13 {
-    background: url(../assets/img/large-os-13.jpg) no-repeat bottom center;
-}
-.img-lg-14 {
-    background: url(../assets/img/large-os-14.jpg) no-repeat bottom center;
-}
-.img-lg-15 {
-    background: url(../assets/img/large-os-15.jpg) no-repeat bottom center;
-}
-.img-lg-16 {
-    background: url(../assets/img/large-os-16.jpg) no-repeat bottom center;
-}
-
-.teh .item-1 {
-    background: url(../assets/img/teh-1.jpg) no-repeat left center;
-}
-.teh .item-2 {
-    background: url(../assets/img/teh-2.jpg) no-repeat left center;
-}
-.teh .item-3 {
-    background: url(../assets/img/teh-3.jpg) no-repeat left center;
-}
-.teh .item-4 {
-    background: url(../assets/img/teh-4.jpg) no-repeat left center;
-}
-.teh .item-5 {
-    background: url(../assets/img/teh-5.jpg) no-repeat left center;
-}
-.teh .item-6 {
-    background: url(../assets/img/teh-6.jpg) no-repeat left center;
-}
-/*.carousel-img {height: auto;min-width: 130%;}*/
-.owl-carousel .item {
-    height: 120px;
-    line-height: 120px;
-    padding: 5px;
-    margin: 5px;
-}
-.owl-carousel .item img{
-    height: 60px;
-}
-.production-link {display: inline-block;color: white;width: 36%;}
-.scrollmenu-productions {background-color: white;overflow: auto;white-space: nowrap;height: 110px;}
-.scrollmenu-color {background-color: white;overflow: auto;white-space: nowrap;}
-.item-product {display: inline-block; width: 100%;}
-.icons-row-slider {display:flex;}
-.gal-5 {display: block;}
-.img-responsive-prod {display: block;height: auto;width: auto}
-.item-row span {font-size: 14px;font-weight: bold;}
-.item-product span {font-size: 11px;font-weight: bold;}
-.toggle-detailed {display: inline-block;}
-.caret-default {
-   border-style: solid;
-	border-width: 0.12em 0.12em 0 0;
-	content: '';
-	display: inline-block;
-	height: 0.4em;
-	left: 0;
-	position: relative;
-	bottom: 0.12em;
-	transform: rotate(45deg);
-	vertical-align: middle;
-	width: 0.4em;
-  color: #808080;
-  font-family: displaepro-bold;
-}
-.caret {
-    border-style: solid;
-	border-width: 0.12em 0.12em 0 0;
-	content: '';
-	display: inline-block;
-	height: 0.4em;
-	left: 0;
-	position: relative;
-	bottom: 0.2em;
-	transform: rotate(135deg);
-	vertical-align: middle;
-	width: 0.4em;
-  color: #808080;
-  font-family: displaepro-bold;
-}
-.customer-link {width:20%;display: inline-block;}
-.right-shadow-block {display: none!important;}
-.br-mobile {display: none;}
-.izg-oss .scrollmenu-productions{height: 200px;}
-.item-row-free-2 img{width: 170px;}
-/*.klient-title {z-index: 1;position: relative;}
-.klient-slider {z-index: 0;margin-top: -40px;}*/
-@media (min-width: 501px) {
-    .slider-1 {display:block;}
-    .img-responsive-prod {height: auto;width: 100%;}
-    .zero-hidden-scroll {width: 100%;height: 40px;margin-top: -60px;background: #fff;position: relative;z-index: 5;}
-    .osqwst .item {width:33.33333333%;}
-    .osqwst .item:last-child {margin-left: 33.33333333%;}
-    .item-row-free-2:nth-child(5) {margin-left:95px;}
-}
-@media (min-width: 601px){
-    .h1, h1 {
-      font-size: 1.5em;
-    }
-}
-@media (min-width: 642px){
-    .item-row-free-2:nth-child(4) {margin-left:95px;}
-    .item-row-free-2:nth-child(5) {margin-left:0px;}
-}
-@media (min-width: 768px) {
-    .osqwst .item {width:25%;}
-    .osqwst .item:nth-child(5) {margin-left: 12.5%;}
-    .osqwst .item:last-child {margin-left: 0;}
-    .item-row-free-2:nth-child(4) {margin-left:0px;}
-    .item-row-free-2:nth-child(5) {margin-left:95px;}
-}
-
-@media (min-width: 992px) {
-  .h1, h1 {
-    font-size: 1.7em;
-    font-family: displaepro;
-}
-    .slider-1 .inner {
-       width: auto;
-       padding-right: 65px;
-      }
-    .osqwst .item {width:20%;}
-    .osqwst .item:nth-child(6) {margin-left: 30%;}
-    .osqwst .item:nth-child(5) {margin-left: 0;}
-    .slider-1 .inner::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 0;
-        border: 60px solid transparent;
-        border-bottom: 60px solid #f0f6f6;
-        border-left: 60px solid #f0f6f6;
-        position: absolute;
-        top: 0;
-        right: -120px;
-    }
-    .slider-1 .title {
-      font-size: 18px;
-    }
-    .production-link {width: 20%;}
-    .item-product span {font-size: 14px;}
-    .item-row-free-2:nth-child(4) {margin-left:95px;}
-    .item-row-free-2:nth-child(5) {margin-left:0px;}
-    .slider-1 .arrow-left {
-    right: -110px;
-    -ms-transform: skewX(45deg);
-    -webkit-transform: skewX(45deg);
-    transform: skewX(45deg);
-    }
-    .slider-1 .arrow-right {
-        right: -172px;
-        bottom: 0;
-        -ms-transform: skewX(45deg);
-        -webkit-transform: skewX(45deg);
-        transform: skewX(45deg);
-    }
-    .slider-1 .inner {
-      width: 300px;
-      padding: 25px 25px 20px 50px;
-    }
-    .slider-1 .arrow-left span {
-        transform: skewX(-45deg);
-    }
-    .slider-1 .arrow-right span {
-        transform: skewX(-45deg);
-    }
-}
-
-@media (min-width: 1200px) {
-    .sleder-1 {
-    width: 813x;
-    }
-    .osqwst .item {width:fit-content;}
-    .osqwst .item:nth-child(6) {margin-left: 0;}
-    .item-row-free-2:nth-child(4) {margin-left: 0px;}
-    .item-row-free-2 img {width: auto;}
-}
-@media (max-width: 820px) {
-  .modal-stone-prev, .modal-stone-next {margin-top: 15%;}
-}
-@media (max-width: 500px) {
- p, li {margin-block-start: 0;}
- .vendor_icon{
-    height: 140px;
-    width: auto;
-    }
-  .img-lg{
-    height: auto;
-    width: auto;
-    margin-bottom: 5px;
-    background-size: cover!important;
-    min-width: 160px;
-    min-height: 160px;}
-  .item-product {
-    width: fit-content;}
-  .production-link {
-    width: 50%;}
-  .item-row-color {
-    /*display: contents;*/
-    display: block;
-    width: 50%;
-    float: left;
-    }
-  .item-row-color img{padding: 10px;width: 170px;height: auto;}
-  .item-row span {font-size: 11px;}
-  .zero-hidden-scroll {display: none;}
-    .osqwst .item {width:50%;}
-    .osqwst .item:last-child {margin-left: 25%;}
-    .br-mobile {display: inline;}
-    .close-modal-stone {padding: 10px;}
-    .modal-stone-row {width: 100vw;margin-left: 0;margin-right: 0;}
-    .modal-stone-prev, .modal-stone-next {margin-top: 60%;}
-    .item-row-color span {display: block;width: 50%;}
-    .scrollmenu-color .slider-button-left {left: -7%;}
-    .scrollmenu-color .slider-button-right {left: 97%;}
-    .customer-link {width: 35%;}
-    .customer-link img {height: auto;width: 110px;}
-    .scrollmenu-productions {height: auto; }
-    .icons-row-slider-productions { height: 120px;position: relative;top: -60px;margin-bottom: -40px;z-index: 1;}
-    .clients-h {z-index: 2;position: relative;}
-}
-@media (max-width: 360px) {
-    .item-row span {font-size: 10px;}
-    .item-row-color img {padding: 10px;max-width: 150px;height: auto;width: auto;}
-}
-@media (max-width: 330px) {
-    .item-row span {font-size: 8px;}
+  .old-services-item{
+    width: 100%;
+  }
+  .main-article h2{
+    font-size: 22px;
+    line-height: 29px;
+  }
 }
 </style>
